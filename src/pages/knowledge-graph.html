@@ -1,83 +1,102 @@
 <!-- 知识图谱页面 -->
 <div class="space-y-6">
-    <!-- 顶部操作栏 -->
-    <div class="bg-white rounded-lg shadow-sm p-4">
+    <!-- 顶部控制栏 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-4">
-                <h2 class="text-xl font-semibold text-gray-900">项目知识图谱</h2>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm text-gray-500">节点数:</span>
-                    <span class="text-sm font-medium">3,756</span>
-                    <span class="text-sm text-gray-500 ml-2">关系数:</span>
-                    <span class="text-sm font-medium">8,942</span>
+                <div class="relative">
+                    <select class="appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8">
+                        <option selected>全部系统</option>
+                        <option>BA系统</option>
+                        <option>安防系统</option>
+                        <option>消防系统</option>
+                        <option>照明系统</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+                <div class="relative">
+                    <select class="appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8">
+                        <option selected>全部设备</option>
+                        <option>控制器</option>
+                        <option>传感器</option>
+                        <option>执行器</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+                <div class="relative">
+                    <select class="appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8">
+                        <option selected>全部文档</option>
+                        <option>技术手册</option>
+                        <option>操作指南</option>
+                        <option>维护记录</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </div>
                 </div>
             </div>
-            <div class="flex space-x-3">
-                <button class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition flex items-center">
-                    <i class="fas fa-file-export mr-2"></i>导出图谱
+            <div class="flex space-x-2">
+                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg" title="全屏显示">
+                    <i class="fas fa-expand"></i>
                 </button>
-                <button class="px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition flex items-center">
-                    <i class="fas fa-sync-alt mr-2"></i>更新数据
+                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg" title="重置视图">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg" title="导出图谱">
+                    <i class="fas fa-download"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 主内容区 -->
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <!-- 左侧筛选面板 -->
-        <div class="bg-white rounded-lg shadow-sm p-4">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">节点筛选</h3>
-            <div class="space-y-4">
-                <!-- 系统类型筛选 -->
-                <div>
-                    <h4 class="text-sm font-medium text-gray-700 mb-2">系统类型</h4>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
-                            <span class="ml-2 text-sm text-gray-600">楼宇自动化系统</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
-                            <span class="ml-2 text-sm text-gray-600">安防监控系统</span>
-                        </label>
-                    </div>
-                </div>
+    <!-- 知识图谱展示区域 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="knowledge-graph-preview" style="height: 600px; background-color: #ffffff; border-radius: 0.5rem; overflow: hidden;">
+            <!-- 知识图谱将通过JavaScript动态生成 -->
+        </div>
+    </div>
 
-                <!-- 节点类型筛选 -->
+    <!-- 详细信息面板 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">节点详细信息</h3>
+        <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <h4 class="text-sm font-medium text-gray-700 mb-2">节点类型</h4>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
-                            <span class="ml-2 text-sm text-gray-600">系统</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
-                            <span class="ml-2 text-sm text-gray-600">设备</span>
-                        </label>
-                    </div>
+                    <p class="text-sm text-gray-500">节点类型</p>
+                    <p class="font-medium text-gray-900">系统</p>
                 </div>
-
-                <button class="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    应用筛选
-                </button>
+                <div>
+                    <p class="text-sm text-gray-500">创建时间</p>
+                    <p class="font-medium text-gray-900">2023-09-15</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">关联节点数</p>
+                    <p class="font-medium text-gray-900">12</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">文档数量</p>
+                    <p class="font-medium text-gray-900">5</p>
+                </div>
             </div>
-        </div>
-
-        <!-- 中间图谱区域 -->
-        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-4">
-            <div id="knowledgeGraph" style="width: 100%; height: 600px; background-color: #f3f4f6;"></div>
-        </div>
-
-        <!-- 右侧节点详情面板 -->
-        <div class="bg-white rounded-lg shadow-sm p-4">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">节点详情</h3>
-            <div class="node-details">
-                <!-- 节点详情将通过JavaScript动态更新 -->
-                <div class="text-center text-gray-500 py-8">
-                    <i class="fas fa-mouse-pointer text-4xl mb-2"></i>
-                    <p>点击图谱中的节点查看详情</p>
+            <div>
+                <p class="text-sm text-gray-500">描述</p>
+                <p class="text-gray-900">点击知识图谱中的节点查看详细信息。</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">相关文档</p>
+                <div class="mt-2 space-y-2">
+                    <div class="flex items-center text-sm">
+                        <i class="fas fa-file-pdf text-red-500 mr-2"></i>
+                        <span class="text-gray-900">系统说明书.pdf</span>
+                    </div>
+                    <div class="flex items-center text-sm">
+                        <i class="fas fa-file-word text-blue-500 mr-2"></i>
+                        <span class="text-gray-900">操作手册.docx</span>
+                    </div>
                 </div>
             </div>
         </div>

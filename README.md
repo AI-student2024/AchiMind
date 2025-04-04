@@ -150,37 +150,30 @@ npm run deploy
 ```
 ArchiMind/
 ├── src/                    # 源代码目录
-│   ├── assets/            # 静态资源文件
-│   │   ├── images/       # 图片资源
-│   │   └── data/         # 数据文件
 │   ├── components/        # 可复用组件
-│   │   ├── header.html   # 页面头部组件
-│   │   └── footer.html   # 页面底部组件
 │   ├── pages/            # 页面组件
-│   │   ├── overview.js   # 概览页面
-│   │   ├── knowledge-graph.js  # 知识图谱页面
-│   │   ├── document.js   # 文档管理页面
-│   │   └── settings.js   # 设置页面
 │   ├── scripts/          # JavaScript 脚本
-│   │   ├── main.js      # 主入口文件
-│   │   ├── graph.js     # 知识图谱相关功能
-│   │   └── utils.js     # 工具函数
 │   └── styles/           # 样式文件
-│       └── main.css     # 主样式文件
 ├── public/               # 公共资源目录
-│   └── index.html       # HTML 入口文件
 ├── dist/                # 构建输出目录
+├── docs/                # 项目文档
 ├── node_modules/        # 依赖包目录
-├── vite.config.js       # Vite 配置文件
-├── package.json         # 项目配置文件
-├── README.md            # 项目说明文档
-└── LICENSE             # 许可证文件
+├── .vscode/            # VS Code 配置
+├── vite.config.js      # Vite 配置文件
+├── package.json        # 项目配置文件
+├── package-lock.json   # 依赖版本锁定文件
+├── index.html          # HTML 入口文件
+├── build.js           # 构建脚本
+├── deploy.sh          # 部署脚本
+├── deploy-all.sh      # 完整部署脚本
+├── README.md          # 项目说明文档
+├── LICENSE           # 许可证文件
+└── .gitignore        # Git 忽略文件
 ```
 
 ### 目录说明
 
 1. `src/` - 源代码目录
-   - `assets/`: 存放项目使用的静态资源
    - `components/`: 可复用的页面组件
    - `pages/`: 各个页面的具体实现
    - `scripts/`: JavaScript 脚本文件
@@ -188,31 +181,64 @@ ArchiMind/
 
 2. `public/` - 公共资源目录
    - 存放不需要打包的静态资源
-   - 包含项目的 HTML 入口文件
 
 3. `dist/` - 构建输出目录
    - 包含构建后的生产环境文件
    - 用于部署到服务器
+
+4. `docs/` - 项目文档目录
+   - 存放项目相关文档
+
+5. `.vscode/` - VS Code 配置目录
+   - 包含编辑器相关配置
 
 ### 核心文件说明
 
 1. 配置文件
    - `vite.config.js`: Vite 构建工具配置
    - `package.json`: 项目依赖和脚本配置
+   - `package-lock.json`: 依赖版本锁定文件
 
 2. 入口文件
-   - `public/index.html`: 页面入口
-   - `src/scripts/main.js`: JavaScript 入口
+   - `index.html`: 页面入口
 
-3. 组件文件
-   - `components/header.html`: 导航栏组件
-   - `components/footer.html`: 页脚组件
+3. 脚本文件说明
+   - `build.js`: 构建脚本
+     - 功能：执行项目构建流程，将源代码转换为生产环境可用的文件
+     - 主要工作：
+       1. 合并和压缩 CSS 文件
+       2. 合并和压缩 JavaScript 文件
+       3. 压缩 HTML 文件
+       4. 复制静态资源（图片、字体等）
+     - 输出：生成 build 目录下的生产环境文件
+     - 特点：
+       - 自动处理文件依赖关系
+       - 优化和压缩所有资源
+       - 保持代码的可维护性
+       - 确保生产环境的性能最优
+   
+   - `deploy.sh`: 基础部署脚本
+     - 功能：基础部署流程
+     - 包含：构建项目、部署到 GitHub Pages
+     - 使用：`./deploy.sh`
+   
+   - `deploy-all.sh`: 完整部署脚本
+     - 功能：完整的部署流程
+     - 包含：提交代码、推送到 GitHub、部署到 ECS、触发 GitHub Pages 部署
+     - 使用：`./deploy-all.sh "更新说明"`
+     - 示例：`./deploy-all.sh "修复部署问题"`
 
-4. 页面文件
-   - `pages/overview.js`: 项目概览页面
-   - `pages/knowledge-graph.js`: 知识图谱展示
-   - `pages/document.js`: 文档管理功能
-   - `pages/settings.js`: 系统设置页面
+4. 部署相关命令
+   ```bash
+   # 构建项目
+   npm run build    # 使用 build.js 构建项目
+   
+   # 部署到 GitHub Pages
+   npm run deploy   # 使用 deploy.sh 部署
+   
+   # 完整部署流程
+   ./deploy-all.sh "更新说明"  # 使用 deploy-all.sh 执行完整部署
+   ```
 
 ## 更新部署流程
 

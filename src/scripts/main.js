@@ -66,7 +66,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 加载组件
 async function loadComponent(id, path) {
     try {
-        const response = await fetch(`${window.location.pathname}src/components/${path.replace('components/', '')}`);
+        const basePath = window.location.pathname.endsWith('/') 
+            ? window.location.pathname 
+            : window.location.pathname + '/';
+        const response = await fetch(`${basePath}src/components/${path}`);
         if (!response.ok) {
             throw new Error(`Failed to load component: ${path}`);
         }
@@ -89,7 +92,10 @@ async function loadPage(pageName) {
         });
 
         // 加载新页面
-        const response = await fetch(`${window.location.pathname}src/pages/${pageName}.html`);
+        const basePath = window.location.pathname.endsWith('/') 
+            ? window.location.pathname 
+            : window.location.pathname + '/';
+        const response = await fetch(`${basePath}src/pages/${pageName}.html`);
         if (!response.ok) {
             throw new Error(`Failed to load page: ${pageName}`);
         }
@@ -139,7 +145,7 @@ async function loadPage(pageName) {
 
         // 加载页面特定的JavaScript
         try {
-            const scriptPath = `${window.location.pathname}src/scripts/pages/${pageName}.js`;
+            const scriptPath = `${basePath}src/scripts/pages/${pageName}.js`;
             const module = await import(scriptPath + '?v=' + new Date().getTime());
             console.log('Loaded script for:', pageName);
             if (module.init) {

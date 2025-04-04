@@ -158,9 +158,9 @@ async function loadPage(pageName) {
             }
         } catch (error) {
             console.warn(`No specific script found for ${pageName}:`, error);
-            // 如果是overview页面，尝试直接初始化知识图谱
-            if (pageName === 'overview') {
-                await initKnowledgeGraphPreview();
+            // 如果是overview或knowledge-graph页面，尝试直接初始化知识图谱
+            if (pageName === 'overview' || pageName === 'knowledge-graph') {
+                await initKnowledgeGraphPreview(projectData);
             }
         }
     } catch (error) {

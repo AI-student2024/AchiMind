@@ -59,155 +59,54 @@ ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，�
 
 ## 部署说明
 
-### GitHub Pages 部署
-项目目前部署在 GitHub Pages：https://ai-student2024.github.io/AchiMind/
+本项目支持两种部署方式：
 
-#### 适用场景
-1. 开发和测试环境
-   - 适合项目开发阶段的演示和测试
-   - 方便团队成员快速访问和验证功能
-   - 无需额外服务器成本
+### 1. GitHub Pages部署
+- 访问地址：https://ai-student2024.github.io/AchiMind/
+- 自动部署：当代码推送到main分支时，会自动触发GitHub Actions进行部署
 
-2. 小规模应用
-   - 适合静态网站和单页应用（SPA）
-   - 适合用户量较小的项目
-   - 每月流量限制在 100GB 以内
+### 2. ECS服务器部署
+- 访问地址：http://8.141.95.87/AchiMind/
+- 服务器信息：阿里云ECS（等待域名备案）
+- 手动部署方式：
+  ```bash
+  # 连接到ECS
+  ssh -i "D:/AgentsDEV/aliyun-ecskey/archimind-beian.pem" root@8.141.95.87
 
-3. 演示网站
-   - 适合项目展示和演示
-   - 适合技术文档托管
-   - 适合开源项目主页
+  # 进入项目目录
+  cd /var/www/archimind
 
-4. 使用限制
-   - 不适合大规模商业应用
-   - 不适合需要后端服务的动态网站
-   - 不适合对访问速度要求较高的应用（国内访问）
-   - 单个仓库大小限制在 1GB 以内
+  # 拉取最新代码
+  git pull origin main
 
-5. 替代方案
-   - 国内访问建议使用 CDN 加速
-   - 大规模应用建议使用专业云服务
-   - 需要后端服务时建议使用完整的云托管方案
+  # 安装依赖
+  npm install
 
-#### 部署步骤
-1. 仓库配置
-   - 创建 GitHub 仓库：https://github.com/new
-   - 仓库名称：AchiMind
-   - 设置为公开仓库（Public）
+  # 构建项目
+  npm run build
+  ```
 
-2. 本地代码配置
+### 3. 自动化部署脚本
+为了简化部署过程，提供了自动化部署脚本：
+
+1. 使用方法：
    ```bash
-   # 初始化 Git 仓库
-   git init
-   
-   # 添加远程仓库
-   git remote add origin https://github.com/[您的用户名]/AchiMind.git
-   
-   # 添加所有文件
-   git add .
-   
-   # 提交更改
-   git commit -m "Initial commit"
-   
-   # 推送到主分支
-   git push -u origin main
+   # 给脚本添加执行权限（首次使用时）
+   chmod +x deploy-all.sh
+
+   # 执行部署（带上更新说明）
+   ./deploy-all.sh "您的更新说明"
    ```
 
-3. GitHub Pages 设置
-   - 进入仓库设置（Settings）
-   - 找到 Pages 选项（Settings -> Pages）
-   - Source 选择：Deploy from a branch
-   - Branch 选择：gh-pages 分支
-   - 点击 Save 保存设置
+2. 脚本功能：
+   - 自动提交代码到GitHub
+   - 自动推送到远程仓库
+   - 自动部署到ECS服务器
+   - GitHub Pages会自动触发部署
 
-4. 部署配置
-   - 在 `package.json` 中确保有以下脚本：
-   ```json
-   {
-     "scripts": {
-       "deploy": "npm run build && gh-pages -d dist"
-     }
-   }
-   ```
-   - 在 `vite.config.js` 中设置正确的 base：
-   ```javascript
-   export default defineConfig({
-     base: '/AchiMind/',
-     // 其他配置...
-   })
-   ```
-
-5. 执行部署
-   ```bash
-   # 安装 gh-pages 包（如果未安装）
-   npm install -D gh-pages
-   
-   # 运行部署命令
-   npm run deploy
-   ```
-
-6. 验证部署
-   - 访问 https://[您的用户名].github.io/AchiMind
-   - 检查控制台是否有资源加载错误
-   - 确认所有功能正常运行
-
-### CDN 加速配置（国内访问）
-
-#### CDN 概述
-CDN（Content Delivery Network，内容分发网络）是一种通过分布式节点加速网站访问的技术服务：
-
-1. 工作原理
-   - 将网站内容分发到全球各地的节点服务器
-   - 用户访问时自动连接到最近的节点
-   - 减少网络拥堵，提供更快的访问速度
-
-2. 主要优势
-   - 提升访问速度：就近访问，减少网络延迟
-   - 降低带宽成本：分散源站压力，节省带宽费用
-   - 提高可用性：多节点备份，防止单点故障
-   - 防御DDoS：分散攻击流量，提供安全防护
-
-3. 适用内容
-   - 静态资源：图片、CSS、JavaScript文件
-   - 下载文件：安装包、文档、媒体文件
-   - 视频流媒体：直播、点播服务
-   - 动态内容：API接口、动态页面（部分场景）
-
-4. 使用建议
-   - 推荐将静态资源使用 CDN 加速
-   - 选择合适的 CDN 服务商（如阿里云、腾讯云等）
-   - 根据访问区域选择节点覆盖范围
-   - 配置合适的缓存策略
-
-#### CDN 配置步骤
-由于 GitHub Pages 在国内访问可能不稳定，建议配置 CDN 加速：
-
-1. 域名准备
-   - 购买域名（推荐使用阿里云域名服务）
-   - 完成域名备案（中国大陆必须，约5-20个工作日）
-
-2. 阿里云 CDN 配置
-   - 登录阿里云控制台，开通 CDN 服务
-   - 获取 AccessKey：
-     - 控制台右上角头像 -> AccessKey 管理
-     - 建议使用子用户 AccessKey（更安全）
-     - 保存好 AccessKey ID 和 AccessKey Secret
-
-3. CDN 域名配置
-   - 进入 CDN 控制台 -> 域名管理 -> 添加域名
-   - 配置信息：
-     - 加速域名：您的域名（可以使用二级域名如 cdn.您的域名.com）
-     - 业务类型：图片小文件
-     - 源站信息：
-       - 源站类型：源站域名
-       - 源站地址：ai-student2024.github.io
-       - 端口：80
-     - 加速区域：仅中国内地
-
-4. 域名解析配置
-   - 获取 CDN 提供的 CNAME 记录
-   - 在域名解析设置中添加 CNAME 记录
-   - 等待解析生效（通常几分钟到几小时）
+3. 部署完成后检查：
+   - GitHub Pages: https://ai-student2024.github.io/AchiMind/
+   - ECS服务器: http://8.141.95.87/AchiMind/
 
 ## 本地开发
 

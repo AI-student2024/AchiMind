@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 加载组件
         const [headerLoaded, footerLoaded] = await Promise.all([
-            loadComponent('header', 'components/header.html'),
-            loadComponent('footer', 'components/footer.html')
+            loadComponent('header', 'header.html'),
+            loadComponent('footer', 'footer.html')
         ]);
 
         if (!headerLoaded || !footerLoaded) {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 加载组件
 async function loadComponent(id, path) {
     try {
-        const response = await fetch(`${window.location.pathname}src/components/${path}`);
+        const response = await fetch(`${window.location.pathname}src/components/${path.replace('components/', '')}`);
         if (!response.ok) {
             throw new Error(`Failed to load component: ${path}`);
         }

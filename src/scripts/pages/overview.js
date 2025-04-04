@@ -52,25 +52,44 @@ async function initKnowledgeGraphPreview(projectData = null) {
         }
         console.log('Found graph container:', graphContainer);
 
+        // 检查vis.js是否正确加载
+        if (typeof vis === 'undefined') {
+            console.error('vis.js is not loaded');
+            return;
+        }
+        console.log('vis.js is loaded');
+
         // 如果存在旧的网络实例，销毁它
         if (currentNetwork) {
             currentNetwork.destroy();
             currentNetwork = null;
         }
 
+        // 设置容器样式
+        graphContainer.style.border = '1px solid #ddd';
+        graphContainer.style.backgroundColor = '#ffffff';
+
         // 根据当前选中的项目获取节点数据
         const selectedProject = localStorage.getItem('selectedProject') || '上海金融中心智能化项目';
-        const nodes = new vis.DataSet(getProjectNodes(selectedProject));
-        const edges = new vis.DataSet(getProjectEdges(selectedProject));
+        console.log('Selected project:', selectedProject);
+
+        const nodeData = getProjectNodes(selectedProject);
+        const edgeData = getProjectEdges(selectedProject);
+        console.log('Node data:', nodeData);
+        console.log('Edge data:', edgeData);
+
+        const nodes = new vis.DataSet(nodeData);
+        const edges = new vis.DataSet(edgeData);
 
         // 配置选项
         const options = {
             nodes: {
                 shape: 'dot',
-                size: 20,
+                size: 30,
                 font: {
-                    size: 14,
-                    color: '#333'
+                    size: 16,
+                    color: '#333',
+                    face: 'Arial'
                 },
                 borderWidth: 2,
                 shadow: true,
@@ -89,40 +108,45 @@ async function initKnowledgeGraphPreview(projectData = null) {
                 arrows: {
                     to: { enabled: true, scaleFactor: 0.5 }
                 },
-                shadow: true
+                smooth: {
+                    type: 'continuous'
+                }
             },
             physics: {
+                enabled: true,
+                barnesHut: {
+                    gravitationalConstant: -2000,
+                    centralGravity: 0.3,
+                    springLength: 200,
+                    springConstant: 0.04,
+                    damping: 0.09
+                },
                 stabilization: {
                     enabled: true,
                     iterations: 1000,
                     updateInterval: 100
-                },
-                barnesHut: {
-                    gravitationalConstant: -80000,
-                    springConstant: 0.001,
-                    springLength: 200
                 }
             },
             interaction: {
                 hover: true,
-                tooltipDelay: 200
+                tooltipDelay: 200,
+                zoomView: true,
+                dragView: true
+            },
+            layout: {
+                randomSeed: 2
             }
         };
+
+        console.log('Creating network with options:', options);
 
         // 创建网络
         currentNetwork = new vis.Network(graphContainer, { nodes, edges }, options);
         
         // 等待网络稳定
-        await new Promise((resolve, reject) => {
-            try {
-                currentNetwork.once('stabilizationIterationsDone', () => {
-                    console.log('Knowledge graph stabilized');
-                    resolve();
-                });
-            } catch (error) {
-                console.error('Error waiting for graph stabilization:', error);
-                reject(error);
-            }
+        currentNetwork.once('stabilizationIterationsDone', () => {
+            console.log('Knowledge graph stabilized');
+            currentNetwork.fit(); // 自动调整视图以显示所有节点
         });
 
         // 添加事件监听器
@@ -146,24 +170,18 @@ function getProjectNodes(projectName) {
     // 根据项目名称返回不同的节点数据
     const nodeData = {
         '上海金融中心智能化项目': [
-            { id: 1, label: 'BA系统', group: 'system' },
-            { id: 2, label: 'DDC控制器', group: 'device' },
-            { id: 3, label: '操作手册', group: 'document' }
+            { id: 1, label: 'BA系统', group: 'system', color: { background: '#97C2FC', border: '#2B7CE9' } },
+            { id: 2, label: 'DDC控制器', group: 'device', color: { background: '#FFB1B1', border: '#E04141' } },
+            { id: 3, label: '操作手册', group: 'document', color: { background: '#B1FFB1', border: '#41E041' } },
+            { id: 4, label: '温度传感器', group: 'device', color: { background: '#FFB1B1', border: '#E04141' } },
+            { id: 5, label: '照明控制', group: 'system', color: { background: '#97C2FC', border: '#2B7CE9' } }
         ],
         '北京中心大厦智能化项目': [
-            { id: 1, label: '安防系统', group: 'system' },
-            { id: 2, label: '监控设备', group: 'device' },
-            { id: 3, label: '技术文档', group: 'document' }
-        ],
-        '广州城投大厦智能化项目': [
-            { id: 1, label: '消防系统', group: 'system' },
-            { id: 2, label: '烟感器', group: 'device' },
-            { id: 3, label: '规范文件', group: 'document' }
-        ],
-        '深圳地铁大厦智能化项目': [
-            { id: 1, label: '照明系统', group: 'system' },
-            { id: 2, label: '智能开关', group: 'device' },
-            { id: 3, label: '说明书', group: 'document' }
+            { id: 1, label: '安防系统', group: 'system', color: { background: '#97C2FC', border: '#2B7CE9' } },
+            { id: 2, label: '监控设备', group: 'device', color: { background: '#FFB1B1', border: '#E04141' } },
+            { id: 3, label: '技术文档', group: 'document', color: { background: '#B1FFB1', border: '#41E041' } },
+            { id: 4, label: '门禁系统', group: 'system', color: { background: '#97C2FC', border: '#2B7CE9' } },
+            { id: 5, label: '读卡器', group: 'device', color: { background: '#FFB1B1', border: '#E04141' } }
         ]
     };
     return nodeData[projectName] || nodeData['上海金融中心智能化项目'];
@@ -173,8 +191,10 @@ function getProjectNodes(projectName) {
 function getProjectEdges(projectName) {
     // 所有项目使用相同的边结构，但可以根据需要自定义
     return [
-        { from: 1, to: 2, label: '控制' },
-        { from: 2, to: 3, label: '关联' }
+        { from: 1, to: 2, label: '控制', arrows: 'to' },
+        { from: 2, to: 3, label: '关联', arrows: 'to' },
+        { from: 1, to: 4, label: '监测', arrows: 'to' },
+        { from: 1, to: 5, label: '包含', arrows: 'to' }
     ];
 }
 

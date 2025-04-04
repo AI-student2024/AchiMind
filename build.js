@@ -7,7 +7,7 @@ const CleanCSS = require('clean-css');
 // 配置
 const config = {
     src: 'src',
-    build: 'build',
+    dist: 'dist',
     minify: {
         html: {
             collapseWhitespace: true,
@@ -26,8 +26,8 @@ const config = {
 };
 
 // 确保构建目录存在
-if (!fs.existsSync(config.build)) {
-    fs.mkdirSync(config.build);
+if (!fs.existsSync(config.dist)) {
+    fs.mkdirSync(config.dist);
 }
 
 // 构建函数
@@ -69,12 +69,12 @@ async function build() {
             .replace('<!-- SCRIPTS -->', `<script>${minifiedJs}</script>`);
 
         // 写入构建文件
-        fs.writeFileSync(path.join(config.build, 'index.html'), finalHtml);
+        fs.writeFileSync(path.join(config.dist, 'index.html'), finalHtml);
 
         // 复制静态资源
         copyStaticResources();
 
-        console.log('构建完成！');
+        console.log('构建完成！输出目录：', config.dist);
     } catch (error) {
         console.error('构建过程中出错：', error);
     }
@@ -86,7 +86,7 @@ function copyStaticResources() {
     
     for (const dir of staticDirs) {
         const srcDir = path.join(config.src, dir);
-        const destDir = path.join(config.build, dir);
+        const destDir = path.join(config.dist, dir);
         
         if (fs.existsSync(srcDir)) {
             // 确保目标目录存在

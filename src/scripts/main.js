@@ -145,9 +145,8 @@ async function loadPage(pageName) {
 
         // 加载页面特定的JavaScript
         try {
-            const scriptPath = `${basePath}src/scripts/pages/${pageName}.js`;
-            console.log('Loading script from:', scriptPath);
-            const module = await import(scriptPath);
+            /* @vite-ignore */
+            const module = await import(`./pages/${pageName}.js`);
             console.log('Script loaded successfully');
             if (module.init) {
                 if (pageName === 'overview') {

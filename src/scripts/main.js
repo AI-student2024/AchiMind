@@ -317,11 +317,7 @@ function updateOverviewContent(projectData) {
     }
 
     // 重新初始化知识图谱
-    import('../scripts/pages/overview.js?v=' + new Date().getTime()).then(module => {
-        if (module.init) {
-            module.init(true, projectData);
-        }
-    });
+    initKnowledgeGraphPreview(projectData);
 }
 
 // 初始化知识图谱预览

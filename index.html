@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchiMind - 智能建筑知识图谱可视化平台</title>
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <script type="module" src="./src/scripts/main.js"></script>
+    <!-- 添加vis.js依赖 -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/vis-network/styles/vis-network.min.css" />
+</head>
+<body class="bg-gray-50">
+    <!-- 加载状态 -->
+    <div id="loading" class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-50">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+            <p class="text-gray-600">正在加载应用...</p>
+        </div>
+    </div>
+
+    <!-- 头部 -->
+    <div id="header"></div>
+
+    <!-- 主要内容区域 -->
+    <div id="content" class="container mx-auto px-4 py-8"></div>
+
+    <!-- 底部 -->
+    <div id="footer"></div>
+</body>
+</html> 

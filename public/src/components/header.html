@@ -1,0 +1,102 @@
+<!-- 导航栏 -->
+<header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- 左侧logo和项目选择 -->
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-xl font-bold text-blue-600">ArchiMind</span>
+                </div>
+                <div class="ml-6 flex items-center">
+                    <div class="relative project-selector">
+                        <button class="flex items-center text-gray-700 hover:text-gray-900 focus:outline-none">
+                            <span class="mr-2">上海金融中心智能化项目</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <!-- 项目下拉菜单 -->
+                        <div class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-1 hidden dropdown-menu">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">上海金融中心智能化项目</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">北京中心大厦智能化项目</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">广州城投大厦智能化项目</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">深圳地铁大厦智能化项目</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧导航链接 -->
+            <div class="flex items-center">
+                <nav class="flex space-x-8">
+                    <a href="#" class="nav-link active" data-page="overview">
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line mr-2"></i>
+                                <span>概览</span>
+                            </div>
+                            <div class="nav-indicator mt-1"></div>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-link" data-page="knowledge-graph">
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-project-diagram mr-2"></i>
+                                <span>知识图谱</span>
+                            </div>
+                            <div class="nav-indicator mt-1"></div>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-link" data-page="documents">
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i>
+                                <span>智能文档</span>
+                            </div>
+                            <div class="nav-indicator mt-1"></div>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-link" data-page="qa">
+                        <div class="flex flex-col items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-comments mr-2"></i>
+                                <span>智能问答</span>
+                            </div>
+                            <div class="nav-indicator mt-1"></div>
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    .nav-link {
+        position: relative;
+        color: #6b7280;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #3b82f6;
+    }
+
+    .nav-link.active {
+        color: #3b82f6;
+    }
+
+    .nav-indicator {
+        height: 2px;
+        width: 0;
+        background-color: #3b82f6;
+        transition: width 0.2s;
+    }
+
+    .nav-link.active .nav-indicator {
+        width: 100%;
+    }
+
+    .project-selector .dropdown-menu {
+        z-index: 50;
+    }
+</style> 

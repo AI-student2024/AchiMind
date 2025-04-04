@@ -1,0 +1,208 @@
+<!-- 项目概览页面 -->
+<div class="space-y-6">
+    <!-- 项目信息卡片 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 project-title">上海金融中心智能化项目</h2>
+                <p class="text-gray-600 mt-1 project-info">项目编号: SHFC-2023-001 | 竣工日期: 2023-09-15</p>
+            </div>
+            <div class="flex space-x-3">
+                <button class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition flex items-center export-report">
+                    <i class="fas fa-file-export mr-2"></i>导出报告
+                </button>
+                <button class="px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition flex items-center update-knowledge">
+                    <i class="fas fa-sync-alt mr-2"></i>更新知识库
+                </button>
+            </div>
+        </div>
+        
+        <!-- 数据统计卡片 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+            <div class="bg-blue-50 p-4 rounded-lg stat-card">
+                <div class="flex items-center">
+                    <div class="bg-blue-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-file-alt text-blue-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">文档数量</p>
+                        <p class="text-xl font-semibold stat-value">1,248</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg stat-card">
+                <div class="flex items-center">
+                    <div class="bg-purple-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-project-diagram text-purple-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">知识节点</p>
+                        <p class="text-xl font-semibold stat-value">3,756</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg stat-card">
+                <div class="flex items-center">
+                    <div class="bg-green-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-video text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">培训视频</p>
+                        <p class="text-xl font-semibold stat-value">42</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-lg stat-card">
+                <div class="flex items-center">
+                    <div class="bg-orange-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-ruler-combined text-orange-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">标准规范</p>
+                        <p class="text-xl font-semibold stat-value">87</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 项目系统概览 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">项目系统概览</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- 楼宇自动化系统 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                <div class="flex items-center mb-3">
+                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-thermometer-half text-blue-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">楼宇自动化系统</h4>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">监控管理暖通空调、给排水、照明等设备</p>
+                <div class="flex text-xs text-gray-500 space-x-3">
+                    <span><i class="fas fa-microchip mr-1"></i>32台控制器</span>
+                    <span><i class="fas fa-sensor mr-1"></i>86个传感器</span>
+                </div>
+            </div>
+            
+            <!-- 安防监控系统 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                <div class="flex items-center mb-3">
+                    <div class="bg-red-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-shield-alt text-red-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">安防监控系统</h4>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">视频监控、入侵报警、门禁管理等</p>
+                <div class="flex text-xs text-gray-500 space-x-3">
+                    <span><i class="fas fa-video mr-1"></i>64路摄像机</span>
+                    <span><i class="fas fa-door-open mr-1"></i>28个读卡器</span>
+                </div>
+            </div>
+            
+            <!-- 综合布线系统 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                <div class="flex items-center mb-3">
+                    <div class="bg-green-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-network-wired text-green-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">综合布线系统</h4>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">语音、数据、图像等多媒体业务传输</p>
+                <div class="flex text-xs text-gray-500 space-x-3">
+                    <span><i class="fas fa-server mr-1"></i>12台交换机</span>
+                    <span><i class="fas fa-wifi mr-1"></i>45个无线AP</span>
+                </div>
+            </div>
+            
+            <!-- 音视频系统 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                <div class="flex items-center mb-3">
+                    <div class="bg-purple-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-tv text-purple-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">音视频系统</h4>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">会议系统、信息发布、背景音乐等</p>
+                <div class="flex text-xs text-gray-500 space-x-3">
+                    <span><i class="fas fa-display mr-1"></i>18块显示屏</span>
+                    <span><i class="fas fa-volume-up mr-1"></i>52个音箱</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 知识图谱和文档预览 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- 知识图谱 -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">项目知识图谱</h3>
+                <div class="flex space-x-2">
+                    <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <button class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="knowledge-graph-preview" style="height: 400px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
+                <!-- 知识图谱节点将通过JS动态生成 -->
+            </div>
+        </div>
+
+        <!-- 文档预览 -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">最新文档</h3>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <div class="document-icon bg-blue-100 text-blue-600">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">BA系统竣工图纸.pdf</h4>
+                        <p class="text-xs text-gray-500">更新于 2023-08-15 | 12.4MB</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="document-icon bg-purple-100 text-purple-600">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">智能化设备清单.xlsx</h4>
+                        <p class="text-xs text-gray-500">更新于 2023-07-28 | 3.2MB</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="document-icon bg-green-100 text-green-600">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">系统操作手册.docx</h4>
+                        <p class="text-xs text-gray-500">更新于 2023-09-01 | 8.7MB</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="document-icon bg-red-100 text-red-600">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">安防系统培训视频.mp4</h4>
+                        <p class="text-xs text-gray-500">更新于 2023-08-20 | 256MB</p>
+                    </div>
+                </div>
+                
+                <button class="w-full py-2 border border-dashed border-gray-300 rounded-lg text-gray-500 hover:text-blue-600 hover:border-blue-400 transition mt-2">
+                    <i class="fas fa-plus mr-2"></i>查看更多文档
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 

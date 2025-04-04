@@ -1,0 +1,184 @@
+<!-- 智能问答页面 -->
+<div class="space-y-6">
+    <!-- 顶部操作栏 -->
+    <div class="bg-white rounded-lg shadow-sm p-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-xl font-semibold text-gray-900">智能问答</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-500">今日问答:</span>
+                    <span class="text-sm font-medium">42</span>
+                    <span class="text-sm text-gray-500 ml-2">准确率:</span>
+                    <span class="text-sm font-medium text-green-600">98%</span>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <button class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition flex items-center">
+                    <i class="fas fa-history mr-2"></i>历史记录
+                </button>
+                <button class="px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition flex items-center">
+                    <i class="fas fa-sync-alt mr-2"></i>更新知识库
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- 左侧常见问题 -->
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">常见问题</h3>
+            <div class="space-y-3">
+                <button class="w-full text-left px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    BA系统如何设置温度控制？
+                </button>
+                <button class="w-full text-left px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    安防系统报警如何处理？
+                </button>
+                <button class="w-full text-left px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    综合布线系统维护周期？
+                </button>
+                <button class="w-full text-left px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    音视频系统常见故障？
+                </button>
+                <button class="w-full text-left px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    如何查看设备运行状态？
+                </button>
+            </div>
+        </div>
+
+        <!-- 中间聊天区域 -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm">
+            <!-- 聊天记录 -->
+            <div class="h-[600px] overflow-y-auto p-4 space-y-4">
+                <!-- 系统消息 -->
+                <div class="flex justify-center">
+                    <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm">
+                        欢迎使用智能问答系统，请问有什么可以帮您？
+                    </div>
+                </div>
+
+                <!-- 用户消息 -->
+                <div class="flex justify-end">
+                    <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-[80%]">
+                        BA系统如何设置温度控制？
+                    </div>
+                </div>
+
+                <!-- 系统回复 -->
+                <div class="flex justify-start">
+                    <div class="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg max-w-[80%]">
+                        <p>BA系统温度控制设置步骤如下：</p>
+                        <ol class="list-decimal pl-5 mt-2 space-y-1">
+                            <li>登录BA系统管理界面</li>
+                            <li>进入温度控制模块</li>
+                            <li>选择需要设置的区域</li>
+                            <li>设置目标温度范围</li>
+                            <li>配置温度传感器参数</li>
+                            <li>保存并应用设置</li>
+                        </ol>
+                        <div class="mt-2 text-sm text-gray-500">
+                            相关文档：<a href="#" class="text-blue-600 hover:underline">BA系统操作手册.pdf</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 用户消息 -->
+                <div class="flex justify-end">
+                    <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-[80%]">
+                        温度传感器参数如何配置？
+                    </div>
+                </div>
+
+                <!-- 系统回复 -->
+                <div class="flex justify-start">
+                    <div class="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg max-w-[80%]">
+                        <p>温度传感器参数配置说明：</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>采样间隔：建议设置为5分钟</li>
+                            <li>报警阈值：高温28℃，低温16℃</li>
+                            <li>校准周期：每季度一次</li>
+                            <li>数据记录：保存最近30天数据</li>
+                        </ul>
+                        <div class="mt-2 flex space-x-2">
+                            <button class="text-sm text-blue-600 hover:underline">查看详细配置</button>
+                            <button class="text-sm text-blue-600 hover:underline">下载配置模板</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入框 -->
+            <div class="border-t border-gray-200 p-4">
+                <div class="flex space-x-3">
+                    <input type="text" placeholder="请输入您的问题..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧问答统计 -->
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">问答统计</h3>
+            <div class="space-y-6">
+                <!-- 问答趋势 -->
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">问答趋势</h4>
+                    <div class="h-32 bg-gray-50 rounded-lg flex items-end space-x-1 p-2">
+                        <div class="flex-1 bg-blue-200 h-3/4 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-1/2 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-2/3 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-3/4 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-1/2 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-2/3 rounded-t"></div>
+                        <div class="flex-1 bg-blue-200 h-3/4 rounded-t"></div>
+                    </div>
+                </div>
+
+                <!-- 热门问题 -->
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">热门问题</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-2">1</span>
+                            <span class="text-gray-800">BA系统温度控制</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-2">2</span>
+                            <span class="text-gray-800">安防系统报警处理</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-2">3</span>
+                            <span class="text-gray-800">综合布线维护</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 问答分类 -->
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">问答分类</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">楼宇自动化</span>
+                            <span class="text-gray-800">42%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">安防监控</span>
+                            <span class="text-gray-800">28%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">综合布线</span>
+                            <span class="text-gray-800">18%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">音视频系统</span>
+                            <span class="text-gray-800">12%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

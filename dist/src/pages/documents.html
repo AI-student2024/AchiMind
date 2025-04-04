@@ -1,0 +1,187 @@
+<!-- 智能文档页面 -->
+<div class="space-y-6">
+    <!-- 顶部操作栏 -->
+    <div class="bg-white rounded-lg shadow-sm p-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-xl font-semibold text-gray-900">智能文档</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-500">文档总数:</span>
+                    <span class="text-sm font-medium">1,248</span>
+                    <span class="text-sm text-gray-500 ml-2">总大小:</span>
+                    <span class="text-sm font-medium">2.4GB</span>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <button class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition flex items-center">
+                    <i class="fas fa-upload mr-2"></i>上传文档
+                </button>
+                <button class="px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition flex items-center">
+                    <i class="fas fa-sync-alt mr-2"></i>同步文档
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文档分类和搜索 -->
+    <div class="bg-white rounded-lg shadow-sm p-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+            <!-- 文档分类 -->
+            <div class="flex space-x-4">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">全部文档</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">设计图纸</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">技术文档</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">设备清单</button>
+            </div>
+            
+            <!-- 搜索框 -->
+            <div class="relative">
+                <input type="text" placeholder="搜索文档..." class="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文档列表 -->
+    <div class="bg-white rounded-lg shadow-sm">
+        <!-- 表头 -->
+        <div class="grid grid-cols-12 gap-4 p-4 border-b border-gray-200">
+            <div class="col-span-5 font-medium text-gray-700">文档名称</div>
+            <div class="col-span-2 font-medium text-gray-700">类型</div>
+            <div class="col-span-2 font-medium text-gray-700">大小</div>
+            <div class="col-span-2 font-medium text-gray-700">更新时间</div>
+            <div class="col-span-1 font-medium text-gray-700">操作</div>
+        </div>
+
+        <!-- 文档列表项 -->
+        <div class="divide-y divide-gray-200">
+            <!-- 文档项1 -->
+            <div class="grid grid-cols-12 gap-4 p-4 hover:bg-gray-50">
+                <div class="col-span-5 flex items-center">
+                    <div class="document-icon bg-blue-100 text-blue-600 mr-3">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">BA系统竣工图纸.pdf</h4>
+                        <p class="text-sm text-gray-500">B1层机房</p>
+                    </div>
+                </div>
+                <div class="col-span-2 flex items-center text-gray-600">设计图纸</div>
+                <div class="col-span-2 flex items-center text-gray-600">12.4MB</div>
+                <div class="col-span-2 flex items-center text-gray-600">2023-08-15</div>
+                <div class="col-span-1 flex items-center space-x-2">
+                    <button class="text-gray-400 hover:text-blue-600">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-green-600">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-purple-600">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 文档项2 -->
+            <div class="grid grid-cols-12 gap-4 p-4 hover:bg-gray-50">
+                <div class="col-span-5 flex items-center">
+                    <div class="document-icon bg-purple-100 text-purple-600 mr-3">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">智能化设备清单.xlsx</h4>
+                        <p class="text-sm text-gray-500">全楼设备</p>
+                    </div>
+                </div>
+                <div class="col-span-2 flex items-center text-gray-600">设备清单</div>
+                <div class="col-span-2 flex items-center text-gray-600">3.2MB</div>
+                <div class="col-span-2 flex items-center text-gray-600">2023-07-28</div>
+                <div class="col-span-1 flex items-center space-x-2">
+                    <button class="text-gray-400 hover:text-blue-600">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-green-600">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-purple-600">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 文档项3 -->
+            <div class="grid grid-cols-12 gap-4 p-4 hover:bg-gray-50">
+                <div class="col-span-5 flex items-center">
+                    <div class="document-icon bg-green-100 text-green-600 mr-3">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">系统操作手册.docx</h4>
+                        <p class="text-sm text-gray-500">运维指南</p>
+                    </div>
+                </div>
+                <div class="col-span-2 flex items-center text-gray-600">技术文档</div>
+                <div class="col-span-2 flex items-center text-gray-600">8.7MB</div>
+                <div class="col-span-2 flex items-center text-gray-600">2023-09-01</div>
+                <div class="col-span-1 flex items-center space-x-2">
+                    <button class="text-gray-400 hover:text-blue-600">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-green-600">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-purple-600">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 文档项4 -->
+            <div class="grid grid-cols-12 gap-4 p-4 hover:bg-gray-50">
+                <div class="col-span-5 flex items-center">
+                    <div class="document-icon bg-red-100 text-red-600 mr-3">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">安防系统培训视频.mp4</h4>
+                        <p class="text-sm text-gray-500">培训资料</p>
+                    </div>
+                </div>
+                <div class="col-span-2 flex items-center text-gray-600">培训视频</div>
+                <div class="col-span-2 flex items-center text-gray-600">256MB</div>
+                <div class="col-span-2 flex items-center text-gray-600">2023-08-20</div>
+                <div class="col-span-1 flex items-center space-x-2">
+                    <button class="text-gray-400 hover:text-blue-600">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-green-600">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-purple-600">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="flex justify-between items-center p-4 border-t border-gray-200">
+            <div class="text-sm text-gray-600">
+                显示 1-4 条，共 1,248 条
+            </div>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
+                <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100">2</button>
+                <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100">3</button>
+                <span class="px-3 py-1 text-gray-600">...</span>
+                <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100">50</button>
+                <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 

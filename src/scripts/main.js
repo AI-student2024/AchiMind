@@ -146,8 +146,9 @@ async function loadPage(pageName) {
         // 加载页面特定的JavaScript
         try {
             const scriptPath = `${basePath}src/scripts/pages/${pageName}.js`;
-            const module = await import(scriptPath + '?v=' + new Date().getTime());
-            console.log('Loaded script for:', pageName);
+            console.log('Loading script from:', scriptPath);
+            const module = await import(scriptPath);
+            console.log('Script loaded successfully');
             if (module.init) {
                 if (pageName === 'overview') {
                     await module.init(false, projectData);
@@ -157,6 +158,10 @@ async function loadPage(pageName) {
             }
         } catch (error) {
             console.warn(`No specific script found for ${pageName}:`, error);
+            // 如果是overview页面，尝试直接初始化知识图谱
+            if (pageName === 'overview') {
+                await initKnowledgeGraphPreview();
+            }
         }
     } catch (error) {
         console.error(`Error loading page ${pageName}:`, error);

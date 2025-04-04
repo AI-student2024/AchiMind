@@ -16,19 +16,31 @@ ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，�
    npm install
 
    # 启动开发服务器
-   npm run dev
+   npm run dev  # 开发环境：支持热更新，方便开发调试
    ```
 
-3. 访问地址
-   - 默认地址：http://localhost:8080/AchiMind/
-   - 支持热更新，代码修改后自动刷新
+3. 开发环境特点
+   - 访问地址：http://localhost:8080/AchiMind/
+   - 支持热更新：代码修改后自动刷新
+   - 不压缩代码：方便调试
+   - 提供开发工具：如源码映射
    - 适合本地开发和调试
 
 ### 方式二：线上环境访问（GitHub Pages + CDN）
 1. GitHub Pages 访问
    - 官方地址：https://ai-student2024.github.io/AchiMind/
-   - 适合海外用户直接访问
-   - 适合开发测试和项目展示
+   - 部署命令：
+     ```bash
+     npm run deploy  # 生产环境：构建优化后部署到GitHub Pages
+     ```
+   - 部署过程：
+     1. `npm run build`：构建生产版本
+        - 代码压缩和优化
+        - 资源打包和处理
+        - 输出到 dist 目录
+     2. `gh-pages -d dist`：部署到 GitHub Pages
+        - 将 dist 目录推送到 gh-pages 分支
+        - GitHub Pages 自动更新
 
 2. CDN 加速访问（推荐国内用户）
    - 通过自定义域名 + CDN 访问

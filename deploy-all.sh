@@ -42,12 +42,30 @@ git push origin main || {
 
 # 部署到ECS
 echo "正在部署到ECS..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && \
-    git pull origin main && \
-    npm install && \
-    npm audit fix && \
-    npm run build" || {
-    echo "ECS 部署失败，请检查服务器连接和权限"
+echo "1. 连接到服务器并拉取代码..."
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && git pull origin main" || {
+    echo "错误：拉取代码失败"
+    exit 1
+}
+
+echo "2. 安装依赖..."
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm install" || {
+    echo "错误：安装依赖失败"
+    exit 1
+}
+
+echo "3. 修复依赖安全问题..."
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm audit fix" || {
+    echo "警告：依赖安全问题修复失败，继续执行..."
+}
+
+echo "4. 构建项目..."
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm run build" || {
+    echo "错误：构建项目失败"
+    echo "请检查："
+    echo "1. 服务器上的 Node.js 版本"
+    echo "2. 项目依赖是否正确安装"
+    echo "3. 构建脚本是否有权限问题"
     exit 1
 }
 

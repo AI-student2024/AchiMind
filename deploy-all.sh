@@ -35,19 +35,17 @@ if [[ "$ENV" != "production" && "$ENV" != "staging" ]]; then
     exit 1
 fi
 
-# 检查 SSH 密钥文件权限
-PEM_FILE="D:/AgentsDEV/aliyun-ecskey/archimind-beian.pem"
-if [ -f "$PEM_FILE" ]; then
-    PERM=$(stat -c "%a" "$PEM_FILE" 2>/dev/null || stat -f "%OLp" "$PEM_FILE")
-    if [ "$PERM" != "600" ]; then
-        echo "警告：SSH 密钥文件权限不正确，正在修复..."
-        chmod 600 "$PEM_FILE"
-        echo "SSH 密钥文件权限已修复为 600"
-    fi
-else
+# 设置 SSH 密钥文件路径（使用 Windows 格式）
+PEM_FILE="D:\\AgentsDEV\\aliyun-ecskey\\archimind-beian.pem"
+
+# 检查 SSH 密钥文件是否存在
+if [ ! -f "$PEM_FILE" ]; then
     echo "错误：找不到 SSH 密钥文件：$PEM_FILE"
     exit 1
 fi
+
+# 设置 SSH 密钥文件权限
+chmod 600 "$PEM_FILE"
 
 # 检查 Git 配置
 echo "检查 Git 配置..."
@@ -59,7 +57,7 @@ fi
 # 提交到GitHub
 echo "正在提交到GitHub分支 $BRANCH..."
 git add .
-git commit -m "update: $1"
+git commit -m "update: $1" || echo "没有新的更改需要提交"
 git push origin $BRANCH || {
     echo "GitHub 推送失败，请检查网络连接和仓库权限"
     exit 1
@@ -67,30 +65,11 @@ git push origin $BRANCH || {
 
 # 部署到ECS
 echo "正在部署到ECS环境 $ENV..."
-echo "1. 连接到服务器并拉取代码..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && git fetch origin && git checkout $BRANCH && git pull origin $BRANCH" || {
-    echo "错误：拉取代码失败"
-    exit 1
-}
+echo "1. 连接到服务器并执行部署..."
 
-echo "2. 安装依赖..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm install" || {
-    echo "错误：安装依赖失败"
-    exit 1
-}
-
-echo "3. 修复依赖安全问题..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm audit fix" || {
-    echo "警告：依赖安全问题修复失败，继续执行..."
-}
-
-echo "4. 构建项目..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && npm run build" || {
-    echo "错误：构建项目失败"
-    echo "请检查："
-    echo "1. 服务器上的 Node.js 版本"
-    echo "2. 项目依赖是否正确安装"
-    echo "3. 构建脚本是否有权限问题"
+# 使用单行命令执行所有操作
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && git fetch origin && git checkout $BRANCH && git pull origin $BRANCH && npm install && npm run build" || {
+    echo "错误：ECS部署失败"
     exit 1
 }
 
@@ -104,5 +83,5 @@ echo "2. ECS服务器: http://8.141.95.87/AchiMind/"
 
 # 等待并检查部署状态
 echo "正在等待部署生效..."
-sleep 30
+sleep 5
 echo "请手动验证以上两个地址是否可以正常访问" 

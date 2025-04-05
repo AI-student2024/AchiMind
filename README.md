@@ -3,6 +3,26 @@
 ## 项目简介
 ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，旨在帮助用户更好地理解和管理智能建筑相关的知识体系。
 
+## 版本管理
+
+### 分支策略
+- `main`: 生产环境分支，用于部署到生产环境
+- `develop`: 开发环境分支，用于日常开发
+- `feature/*`: 功能分支，用于开发新功能
+- `hotfix/*`: 紧急修复分支，用于修复生产环境的问题
+
+### 标签管理
+- 使用语义化版本号（Semantic Versioning）
+- 格式：v主版本号.次版本号.修订号
+- 示例：v1.0.0
+
+### 版本发布流程
+1. 从 `develop` 分支创建 `release` 分支
+2. 在 `release` 分支上进行测试和修复
+3. 测试通过后，合并到 `main` 分支
+4. 在 `main` 分支上打标签
+5. 将 `release` 分支的更改合并回 `develop` 分支
+
 ## 访问方式
 
 ### 方式一：本地开发环境访问
@@ -75,7 +95,9 @@ ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，�
   cd /var/www/archimind
 
   # 拉取最新代码
-  git pull origin main
+  git fetch origin
+  git checkout <branch_name>
+  git pull origin <branch_name>
 
   # 安装依赖
   npm install
@@ -101,17 +123,23 @@ ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，�
    # 给脚本添加执行权限（首次使用时）
    chmod +x deploy-all.sh
 
-   # 执行部署（带上更新说明）
+   # 执行部署（基本用法）
    ./deploy-all.sh "您的更新说明"
+
+   # 指定分支和环境部署
+   ./deploy-all.sh "您的更新说明" develop staging
    ```
 
-2. 脚本功能：
-   - 自动提交代码到GitHub
-   - 自动推送到远程仓库
-   - 自动部署到ECS服务器
-   - GitHub Pages会自动触发部署
+2. 脚本参数说明：
+   - 第一个参数：更新说明（必填）
+   - 第二个参数：分支名称（可选，默认：main）
+   - 第三个参数：环境名称（可选，默认：production）
 
-3. 部署完成后检查：
+3. 环境说明：
+   - production: 生产环境
+   - staging: 测试环境
+
+4. 部署完成后检查：
    - GitHub Pages: https://ai-student2024.github.io/AchiMind/
    - ECS服务器: http://8.141.95.87/AchiMind/
 
@@ -200,105 +228,76 @@ ArchiMind/
 
 ## 更新部署流程
 
-### 本地修改提交
-1. 确认修改
+### 开发流程
+1. 创建功能分支
    ```bash
-   # 查看修改的文件
-   git status
-   
-   # 查看具体修改内容
-   git diff
+   git checkout -b feature/your-feature-name
    ```
 
-2. 提交修改
+2. 开发完成后提交
    ```bash
-   # 添加修改的文件到暂存区
    git add .
-   
-   # 提交修改（写明修改说明）
-   git commit -m "update: 更新的具体内容"
-   
-   # 推送到 GitHub
-   git push origin main
+   git commit -m "feat: 功能说明"
+   git push origin feature/your-feature-name
    ```
 
-### 部署到 GitHub Pages
-1. 构建项目
+3. 合并到开发分支
    ```bash
-   # 构建生产版本
-   npm run build
+   git checkout develop
+   git merge feature/your-feature-name
    ```
 
-2. 部署更新
+### 发布流程
+1. 创建发布分支
    ```bash
-   # 部署到 GitHub Pages
-   npm run deploy
+   git checkout -b release/v1.x.x
    ```
 
-### 快速更新命令（推荐）
-将提交和部署合并为一个命令，提高效率：
-
-1. Windows 系统
+2. 测试和修复
    ```bash
-   # 方式一：使用 && 连接命令
-   git add . && git commit -m "update: 更新说明" && git push origin main && npm run deploy
-
-   # 方式二：创建批处理文件 deploy.bat
-   echo git add . && git commit -m "update: %%1" && git push origin main && npm run deploy > deploy.bat
-   # 使用方式：deploy.bat "更新说明"
+   # 在release分支上进行测试和修复
    ```
 
-2. Linux/Mac 系统
+3. 发布到生产环境
    ```bash
-   # 方式一：使用 && 连接命令
-   git add . && git commit -m "update: 更新说明" && git push origin main && npm run deploy
-
-   # 方式二：创建别名
-   echo 'alias deploy="git add . && git commit -m \"update: $1\" && git push origin main && npm run deploy"' >> ~/.bashrc
-   source ~/.bashrc
-   # 使用方式：deploy "更新说明"
+   git checkout main
+   git merge release/v1.x.x
+   git tag -a v1.x.x -m "Release v1.x.x"
+   git push origin main --tags
    ```
 
-3. 使用建议
-   - 合并命令虽然方便，但建议在重要更新时还是分步执行
-   - 确保每次提交都有明确的更新说明
-   - 部署前最好先在本地测试确认功能正常
-
-### 验证更新
-1. 等待几分钟让 GitHub Pages 部署生效
-2. 访问 https://[您的用户名].github.io/AchiMind
-3. 检查新功能是否正常工作
-4. 查看控制台是否有错误信息
-
-### 常见问题处理
-1. 提交失败
+4. 更新开发分支
    ```bash
-   # 拉取远程最新代码
-   git pull origin main
-   
-   # 解决冲突后重新提交
+   git checkout develop
+   git merge release/v1.x.x
+   ```
+
+### 紧急修复流程
+1. 创建修复分支
+   ```bash
+   git checkout -b hotfix/issue-description
+   ```
+
+2. 修复并提交
+   ```bash
    git add .
-   git commit -m "fix: 解决冲突"
-   git push origin main
+   git commit -m "fix: 修复说明"
+   git push origin hotfix/issue-description
    ```
 
-2. 部署失败
+3. 合并到生产环境
    ```bash
-   # 清理构建缓存
-   npm run clean
-   
-   # 重新安装依赖
-   npm install
-   
-   # 重新构建和部署
-   npm run build
-   npm run deploy
+   git checkout main
+   git merge hotfix/issue-description
+   git tag -a v1.x.y -m "Hotfix v1.x.y"
+   git push origin main --tags
    ```
 
-3. 更新未生效
-   - 清除浏览器缓存
-   - 等待 CDN 缓存刷新（约5-30分钟）
-   - 检查 GitHub Pages 部署状态
+4. 更新开发分支
+   ```bash
+   git checkout develop
+   git merge hotfix/issue-description
+   ```
 
 ## 贡献指南
 欢迎提交 Issue 和 Pull Request 来帮助改进项目。

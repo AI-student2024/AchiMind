@@ -3,10 +3,35 @@
 # 设置错误处理
 set -e
 
+# 默认配置
+DEFAULT_BRANCH="main"
+DEFAULT_ENV="production"
+
 # 检查参数
 if [ -z "$1" ]; then
     echo "错误：请提供提交信息"
-    echo "使用方法：./deploy-all.sh \"您的更新说明\""
+    echo "使用方法：./deploy-all.sh \"您的更新说明\" [分支名] [环境]"
+    echo "示例：./deploy-all.sh \"更新说明\" develop staging"
+    exit 1
+fi
+
+# 设置分支和环境
+BRANCH=${2:-$DEFAULT_BRANCH}
+ENV=${3:-$DEFAULT_ENV}
+
+# 检查分支是否合法
+if [[ "$BRANCH" != "main" && "$BRANCH" != "develop" ]]; then
+    echo "警告：非标准分支名称，请确认是否继续部署到分支 $BRANCH"
+    read -p "是否继续？(y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+fi
+
+# 检查环境是否合法
+if [[ "$ENV" != "production" && "$ENV" != "staging" ]]; then
+    echo "错误：无效的环境名称，只支持 production 或 staging"
     exit 1
 fi
 
@@ -32,18 +57,18 @@ if ! git remote -v | grep -q "github.com"; then
 fi
 
 # 提交到GitHub
-echo "正在提交到GitHub..."
+echo "正在提交到GitHub分支 $BRANCH..."
 git add .
 git commit -m "update: $1"
-git push origin main || {
+git push origin $BRANCH || {
     echo "GitHub 推送失败，请检查网络连接和仓库权限"
     exit 1
 }
 
 # 部署到ECS
-echo "正在部署到ECS..."
+echo "正在部署到ECS环境 $ENV..."
 echo "1. 连接到服务器并拉取代码..."
-ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && git pull origin main" || {
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && git fetch origin && git checkout $BRANCH && git pull origin $BRANCH" || {
     echo "错误：拉取代码失败"
     exit 1
 }

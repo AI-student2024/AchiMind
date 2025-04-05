@@ -124,6 +124,122 @@
 | test | 测试相关 | test: 添加用户登录测试 |
 | chore | 构建过程 | chore: 更新依赖包 |
 
+### 6.3 Git Flow 工作流程
+
+#### 6.3.1 功能开发流程
+1. **准备工作**
+   ```bash
+   # 切换到develop分支并更新
+   git checkout develop
+   git pull origin develop
+   
+   # 创建新的功能分支
+   git checkout -b feature/功能名称
+   ```
+
+2. **开发过程**
+   ```bash
+   # 查看工作区状态
+   git status
+   
+   # 查看代码改动
+   git diff
+   
+   # 添加改动到暂存区
+   git add .
+   
+   # 提交改动
+   git commit -m "feat: 功能描述"
+   ```
+
+3. **功能完成后**
+   ```bash
+   # 切换到develop分支
+   git checkout develop
+   git pull origin develop
+   
+   # 合并功能分支
+   git merge feature/功能名称
+   
+   # 推送到远程
+   git push origin develop
+   ```
+
+4. **清理工作**
+   ```bash
+   # 删除本地功能分支
+   git branch -d feature/功能名称
+   
+   # 删除远程功能分支
+   git push origin --delete feature/功能名称
+   ```
+
+#### 6.3.2 部署流程
+1. **开发环境部署**
+   ```bash
+   # 确保develop分支最新
+   git checkout develop
+   git pull origin develop
+   
+   # 运行测试
+   npm run test
+   
+   # 本地验证
+   npm run dev
+   ```
+
+2. **生产环境部署**
+   ```bash
+   # 合并到main分支
+   git checkout main
+   git pull origin main
+   git merge develop
+   
+   # 创建版本标签
+   git tag -a v版本号 -m "版本描述"
+   git push origin v版本号
+   
+   # 推送到远程
+   git push origin main
+   
+   # 执行部署脚本
+   bash deploy-all.sh
+   ```
+
+#### 6.3.3 注意事项
+- 每个功能分支应该只包含一个功能或修复
+- 合并前必须先更新目标分支
+- 合并后及时清理已完成的功能分支
+- 部署前必须完成充分的测试
+- 保持commit信息清晰和规范
+- 定期清理过时的分支和标签
+
+#### 6.3.4 常见问题处理
+1. **合并冲突**
+   ```bash
+   # 解决冲突后
+   git add .
+   git commit -m "fix: 解决合并冲突"
+   ```
+
+2. **回滚操作**
+   ```bash
+   # 回滚到指定提交
+   git reset --hard 提交ID
+   
+   # 回滚最近一次提交
+   git reset --soft HEAD^
+   ```
+
+3. **暂存修改**
+   ```bash
+   # 暂存当前修改
+   git stash
+   
+   # 恢复暂存的修改
+   git stash pop
+   ```
+
 ## 7. 进度追踪
 
 ### 7.1 任务看板

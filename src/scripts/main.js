@@ -19,16 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingElement.style.display = 'flex';
         }
 
-        // 加载组件
-        const [headerLoaded, footerLoaded] = await Promise.all([
-            loadComponent('header', 'header.html'),
-            loadComponent('footer', 'footer.html')
-        ]);
-
-        if (!headerLoaded || !footerLoaded) {
-            throw new Error('Failed to load components');
-        }
-
         // 初始化导航
         initNavigation();
         
@@ -69,13 +59,21 @@ async function loadComponent(id, path) {
         const basePath = window.location.pathname.endsWith('/') 
             ? window.location.pathname 
             : window.location.pathname + '/';
-        const response = await fetch(`${basePath}src/components/${path}`);
+        
+        // 添加时间戳防止缓存
+        const timestamp = new Date().getTime();
+        const response = await fetch(`${basePath}src/components/${path}?_=${timestamp}`);
+        
         if (!response.ok) {
             throw new Error(`Failed to load component: ${path}`);
         }
         const html = await response.text();
-        document.getElementById(id).innerHTML = html;
-        return true;
+        const container = document.getElementById(id);
+        if (container) {
+            container.innerHTML = html;
+            return true;
+        }
+        return false;
     } catch (error) {
         console.error(`Error loading component ${path}:`, error);
         return false;
@@ -157,10 +155,10 @@ async function loadPage(pageName) {
             }
         } catch (error) {
             console.warn(`No specific script found for ${pageName}:`, error);
-            // 如果是overview或knowledge-graph页面，尝试直接初始化知识图谱
-            if (pageName === 'overview' || pageName === 'knowledge-graph') {
-                await initKnowledgeGraphPreview(projectData);
-            }
+            // 移除重复初始化
+            // if (pageName === 'overview' || pageName === 'knowledge-graph') {
+            //     await initKnowledgeGraphPreview(projectData);
+            // }
         }
     } catch (error) {
         console.error(`Error loading page ${pageName}:`, error);
@@ -315,8 +313,7 @@ function updateOverviewContent(projectData) {
         stats[3].querySelector('.stat-value').textContent = projectData.standards.toLocaleString();
     }
 
-    // 重新初始化知识图谱
-    initKnowledgeGraphPreview(projectData);
+    // 不再在这里初始化知识图谱，让 overview.js 处理
 }
 
 // 初始化知识图谱预览
@@ -324,10 +321,13 @@ async function initKnowledgeGraphPreview(projectData = null) {
     console.log('Initializing knowledge graph preview');
     
     try {
+        // 等待一小段时间确保DOM已加载
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
         // 获取图谱容器
         const graphContainer = document.querySelector('.knowledge-graph-preview');
         if (!graphContainer) {
-            console.error('Knowledge graph container not found');
+            console.log('Knowledge graph container not found, may be on a different page');
             return;
         }
         console.log('Found graph container:', graphContainer);

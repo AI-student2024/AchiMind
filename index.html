@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network/styles/vis-network.min.css">
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- 安装Tailwind作为PostCSS插件 -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./src/styles/main.css">
     <script type="module" src="./src/scripts/main.js"></script>
 </head>
@@ -24,12 +22,144 @@
     </div>
 
     <!-- 头部 -->
-    <div id="header"></div>
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- 左侧logo和项目选择 -->
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-xl font-bold">
+                            <span class="text-gray-600">睿知</span>
+                            <span class="text-blue-600">ArchiMind</span>
+                        </span>
+                    </div>
+                    <div class="ml-6 flex items-center">
+                        <div class="project-selector relative">
+                            <button class="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <span>上海金融中心智能化项目</span>
+                                <i class="fas fa-chevron-down text-gray-500"></i>
+                            </button>
+                            <div class="dropdown-menu hidden absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">上海金融中心智能化项目</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">北京中心大厦智能化项目</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">广州城投大厦智能化项目</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">深圳地铁大厦智能化项目</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧导航链接 -->
+                <div class="flex items-center">
+                    <nav class="flex space-x-8">
+                        <a href="#" class="nav-link active" data-page="overview">
+                            <div class="flex flex-col items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-chart-line mr-2"></i>
+                                    <span>概览</span>
+                                </div>
+                                <div class="nav-indicator mt-1"></div>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-link" data-page="knowledge-graph">
+                            <div class="flex flex-col items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-project-diagram mr-2"></i>
+                                    <span>知识图谱</span>
+                                </div>
+                                <div class="nav-indicator mt-1"></div>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-link" data-page="documents">
+                            <div class="flex flex-col items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-alt mr-2"></i>
+                                    <span>智能文档</span>
+                                </div>
+                                <div class="nav-indicator mt-1"></div>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-link" data-page="qa">
+                            <div class="flex flex-col items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-comments mr-2"></i>
+                                    <span>智能问答</span>
+                                </div>
+                                <div class="nav-indicator mt-1"></div>
+                            </div>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- 主要内容区域 -->
     <div id="content" class="container mx-auto px-4 py-8"></div>
 
     <!-- 底部 -->
-    <div id="footer"></div>
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- 版权信息 -->
+                <div class="text-sm text-gray-500">
+                    <span class="text-gray-600">睿知</span>
+                    <span class="text-blue-600">ArchiMind</span>
+                    <span class="mx-2">|</span>
+                    <span>智能建筑知识服务平台</span>
+                    <span class="mx-2">|</span>
+                    <span>© 2025 北京泰豪智能工程有限公司</span>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-envelope"></i>
+                        <span class="sr-only">Email</span>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-phone"></i>
+                        <span class="sr-only">Phone</span>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="sr-only">Address</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .nav-link {
+            position: relative;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+
+        .nav-link.active {
+            color: #3b82f6;
+        }
+
+        .nav-indicator {
+            height: 2px;
+            width: 0;
+            background-color: #3b82f6;
+            transition: width 0.2s;
+        }
+
+        .nav-link.active .nav-indicator {
+            width: 100%;
+        }
+
+        .project-selector .dropdown-menu {
+            z-index: 50;
+        }
+    </style>
 </body>
 </html> 

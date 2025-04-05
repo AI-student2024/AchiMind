@@ -10,6 +10,20 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# 检查 SSH 密钥文件权限
+PEM_FILE="D:/AgentsDEV/aliyun-ecskey/archimind-beian.pem"
+if [ -f "$PEM_FILE" ]; then
+    PERM=$(stat -c "%a" "$PEM_FILE" 2>/dev/null || stat -f "%OLp" "$PEM_FILE")
+    if [ "$PERM" != "600" ]; then
+        echo "警告：SSH 密钥文件权限不正确，正在修复..."
+        chmod 600 "$PEM_FILE"
+        echo "SSH 密钥文件权限已修复为 600"
+    fi
+else
+    echo "错误：找不到 SSH 密钥文件：$PEM_FILE"
+    exit 1
+fi
+
 # 检查 Git 配置
 echo "检查 Git 配置..."
 if ! git remote -v | grep -q "github.com"; then
@@ -28,7 +42,7 @@ git push origin main || {
 
 # 部署到ECS
 echo "正在部署到ECS..."
-ssh -i "D:/AgentsDEV/aliyun-ecskey/archimind-beian.pem" root@8.141.95.87 "cd /var/www/archimind && \
+ssh -i "$PEM_FILE" root@8.141.95.87 "cd /var/www/archimind && \
     git pull origin main && \
     npm install && \
     npm audit fix && \

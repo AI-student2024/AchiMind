@@ -86,6 +86,18 @@ ArchiMind 是一个专注于智能建筑领域的知识图谱可视化平台，�
   npm run build
   ```
 
+### ECS服务器部署注意事项
+1. SSH 密钥文件权限设置
+   - 密钥文件（.pem）必须设置正确的权限
+   - 执行命令：`chmod 600 "密钥文件路径"`
+   - 权限说明：
+     - 600：只有所有者可读写
+     - 不能有其他用户或组的访问权限
+   - 这是 SSH 安全要求，否则连接会失败
+
+2. 访问地址：http://8.141.95.87/AchiMind/
+3. 服务器信息：阿里云ECS（等待域名备案）
+
 ### 3. 自动化部署脚本
 为了简化部署过程，提供了自动化部署脚本：
 
@@ -216,135 +228,4 @@ ArchiMind/
        - 优化和压缩所有资源
        - 保持代码的可维护性
        - 确保生产环境的性能最优
-     - 使用：`node build.js` 或 `npm run build`
-   
-   - `deploy.sh`: 基础部署脚本
-     - 功能：基础部署流程
-     - 包含：构建项目、部署到 GitHub Pages
-     - 使用：`./deploy.sh`
-   
-   - `deploy-all.sh`: 完整部署脚本
-     - 功能：完整的部署流程
-     - 包含：提交代码、推送到 GitHub、部署到 ECS、触发 GitHub Pages 部署
-     - 使用：`./deploy-all.sh "更新说明"`
-     - 示例：`./deploy-all.sh "修复部署问题"`
-
-4. 部署相关命令
-   ```bash
-   # 构建项目
-   npm run build    # 使用 build.js 构建项目
-   
-   # 部署到 GitHub Pages
-   npm run deploy   # 使用 deploy.sh 部署
-   
-   # 完整部署流程
-   ./deploy-all.sh "更新说明"  # 使用 deploy-all.sh 执行完整部署
-   ```
-
-## 更新部署流程
-
-### 本地修改提交
-1. 确认修改
-   ```bash
-   # 查看修改的文件
-   git status
-   
-   # 查看具体修改内容
-   git diff
-   ```
-
-2. 提交修改
-   ```bash
-   # 添加修改的文件到暂存区
-   git add .
-   
-   # 提交修改（写明修改说明）
-   git commit -m "update: 更新的具体内容"
-   
-   # 推送到 GitHub
-   git push origin main
-   ```
-
-### 部署到 GitHub Pages
-1. 构建项目
-   ```bash
-   # 构建生产版本
-   npm run build
-   ```
-
-2. 部署更新
-   ```bash
-   # 部署到 GitHub Pages
-   npm run deploy
-   ```
-
-### 快速更新命令（推荐）
-将提交和部署合并为一个命令，提高效率：
-
-1. Windows 系统
-   ```bash
-   # 方式一：使用 && 连接命令
-   git add . && git commit -m "update: 更新说明" && git push origin main && npm run deploy
-
-   # 方式二：创建批处理文件 deploy.bat
-   echo git add . && git commit -m "update: %%1" && git push origin main && npm run deploy > deploy.bat
-   # 使用方式：deploy.bat "更新说明"
-   ```
-
-2. Linux/Mac 系统
-   ```bash
-   # 方式一：使用 && 连接命令
-   git add . && git commit -m "update: 更新说明" && git push origin main && npm run deploy
-
-   # 方式二：创建别名
-   echo 'alias deploy="git add . && git commit -m \"update: $1\" && git push origin main && npm run deploy"' >> ~/.bashrc
-   source ~/.bashrc
-   # 使用方式：deploy "更新说明"
-   ```
-
-3. 使用建议
-   - 合并命令虽然方便，但建议在重要更新时还是分步执行
-   - 确保每次提交都有明确的更新说明
-   - 部署前最好先在本地测试确认功能正常
-
-### 验证更新
-1. 等待几分钟让 GitHub Pages 部署生效
-2. 访问 https://[您的用户名].github.io/AchiMind
-3. 检查新功能是否正常工作
-4. 查看控制台是否有错误信息
-
-### 常见问题处理
-1. 提交失败
-   ```bash
-   # 拉取远程最新代码
-   git pull origin main
-   
-   # 解决冲突后重新提交
-   git add .
-   git commit -m "fix: 解决冲突"
-   git push origin main
-   ```
-
-2. 部署失败
-   ```bash
-   # 清理构建缓存
-   npm run clean
-   
-   # 重新安装依赖
-   npm install
-   
-   # 重新构建和部署
-   npm run build
-   npm run deploy
-   ```
-
-3. 更新未生效
-   - 清除浏览器缓存
-   - 等待 CDN 缓存刷新（约5-30分钟）
-   - 检查 GitHub Pages 部署状态
-
-## 贡献指南
-欢迎提交 Issue 和 Pull Request 来帮助改进项目。
-
-## 许可证
-[MIT License](LICENSE)
+     - 使用：`
